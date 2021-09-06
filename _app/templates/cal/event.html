@@ -1,0 +1,26 @@
+{% extends 'cal/base.html' %}
+
+{% block title %}
+Event
+{% endblock %}
+
+{% block content %}
+<div class="clearfix">
+  <a class="btn btn-info left" href="{% url 'ecalendar:calendar' %}"> Calendar </a>
+</div>
+<div class="card" style="width: 400px;margin: 0 auto;">
+  <div class="card-body">
+    <form action="" method="post">
+      {% csrf_token %}
+      <table class="form form-table">
+        {{ form }}
+        <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
+      </table>
+    </form>
+  </div>
+</div>
+
+<div>
+  <p style="text-align:center">Made by <span style="color:orange;">OrangeAcademy</span></p>
+</div>
+{% endblock %}

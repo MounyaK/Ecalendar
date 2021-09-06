@@ -1,0 +1,23 @@
+{% extends 'cal/base.html' %}
+{% load template_functions %}
+
+{% block content %}
+ <div class="card bg-light text-dark">
+    <div class="card-body" style="text-align:center;font-size: 25px;font-weight: bold;">Planning of: <span style="color:orange">{{current_room.get_title}}</span></div>
+ </div>
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'ecalendar:calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{% url 'ecalendar:calendar' %}?{{ next_month }}"> Next Month </a>
+	<a class="btn btn-info right" href="{% url 'ecalendar:event_new' %}">New event</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {{ calendar }}
+    </div>
+</div>
+
+<div>
+  <p style="text-align:center">Made by <span style="color:orange;">OrangeAcademy</span></p>
+</div>
+{% endblock %}
