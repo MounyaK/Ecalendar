@@ -1,11 +1,9 @@
 from datetime import datetime, timedelta
 from calendar import HTMLCalendar
+from django.conf import settings
+from .models import Event, Room
 
 import requests
-from django.conf import settings
-
-
-from .models import Event, Room
 
 
 class Calendar(HTMLCalendar):
@@ -50,6 +48,7 @@ class Calendar(HTMLCalendar):
 CURRENT_ROOM = Room.objects.first()
 
 
+# Auth to API
 def authenticate():
     api_route = settings.API_URL + "auth/login"
     data = {"email": CURRENT_ROOM.get_email, "password": CURRENT_ROOM.get_password}

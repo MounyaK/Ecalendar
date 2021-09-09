@@ -15,8 +15,10 @@ from .utils import Calendar, authenticate
 from django.conf import settings
 
 CURRENT_ROOM = Room.objects.first()
+spinner = ""
 
 
+# Calendar view
 class CalendarView(generic.ListView):
     model = Event
     template_name = 'cal/calendar.html'
@@ -38,10 +40,14 @@ class CalendarView(generic.ListView):
         context['event'] = event(self.request)
         context['rooms'] = Room.objects.all()
         context['current_room'] = CURRENT_ROOM
+        context['display_spinner'] = display_spinner()
+        # context['show_spinner'] = show_spinner()
+        # context['spinner'] = spinner
 
         return context
 
 
+# computes previous month
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
@@ -49,6 +55,7 @@ def prev_month(d):
     return month
 
 
+# computes next month
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
     last = d.replace(day=days_in_month)
@@ -57,6 +64,7 @@ def next_month(d):
     return month
 
 
+# computes the date
 def get_date(req_day):
     if req_day:
         year, month = (int(x) for x in req_day.split('-'))
@@ -64,8 +72,7 @@ def get_date(req_day):
     return datetime.today()
 
 
-# event(request, event_id=None):
-
+# Process event form data
 def event(request):
     api_route = settings.API_URL + "reservation/new"
     form = EventForm(request.POST or None)
@@ -79,6 +86,7 @@ def event(request):
 
         data = form.cleaned_data
 
+        # sending data
         if verify_ok(request, form.cleaned_data['day'], form.cleaned_data['start_time'], form.cleaned_data['end_time']):
             headers = authenticate()
             response = requests.post(api_route, data=data, headers=headers)
@@ -94,6 +102,7 @@ def event(request):
     return render(request, 'cal/event.html', {'form': form})
 
 
+# Verifies if room free on API
 def verify_ok(request, day, start, end):
     api_route = settings.API_URL + "salle/status"
     data = {'salle': CURRENT_ROOM.get_title, 'day': day, 'start': start, 'end': end}
@@ -108,11 +117,7 @@ def verify_ok(request, day, start, end):
     return response.ok
 
 
-# def set_room(room):
-#     global CURRENT_ROOM
-#     CURRENT_ROOM = room
-
-
+# Fetch reservation events from API
 def get_events():
     Event.objects.all().delete()
 
@@ -135,3 +140,13 @@ def get_events():
                            nbre_siege=e['nbre_siege']
                            )
             events.save()
+
+
+# def show_spinner():
+#     global spinner
+#     url = '{% static "images/loader.gif" %}'
+#     spinner = f''
+#     return True
+
+def display_spinner():
+    return True

@@ -7,6 +7,7 @@ from .models import Event
 from .utils import authenticate
 
 
+# Fetch list of dispositions array from API
 def get_disposition():
     api_route = settings.API_URL + "preference/all"
     headers = authenticate()
