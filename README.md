@@ -1,7 +1,8 @@
 **APPLICATION ECRAN RASPBERRY** 
 
-Version: 1.0
-Orange Academy
+- Version: 1.0
+- By Orange Academy
+- Avec l'aide de [Hui Wen]( https://www.huiwenteo.com/normal/2018/07/24/django-calendar.html) pour la base du calendrier
 
 
 **Configuration**
@@ -22,10 +23,10 @@ de réservation avent d'être affiché)
 
 **API**
 
-- Constants
+- **Constants**
     API_URL: 'http://localhost:8000/api/v1/'
 
-- Views
+- **Views**
 
     def get_context_data(self, **kwargs):
         Acquérir information nécessaire à l'affichage
@@ -48,7 +49,7 @@ de réservation avent d'être affiché)
     def get_events():
         Récupérer les divers évènements de l'API de réservation
 
-- Utils
+- **Utils**
 
     def formatday(self, day, events):
         formatter l'affichage des jours du calendriers
@@ -58,10 +59,14 @@ de réservation avent d'être affiché)
     def authenticate():
         S'authentifier après de l'API de réservation
 
-- Forms
+- **Forms**
 
     def get_disposition():
         Récupérer les différentes dispositions de l'API
+
+
+Mounya Kamidjigha
+mkamidjigha@gmail.com
     
 
 
