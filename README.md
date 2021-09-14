@@ -6,7 +6,7 @@ Orange Academy
 
 **Configuration**
 
-1. Utiliser fichier de ecalendar.db pour migrer les tables
+1. Utiliser fichier de ecalendar.sql pour migrer les tables
 2. Créer superuser pour administration
 3. Ajouter les informations de la nouvelle salle (room) pour laquelle 
 est utilisée l'application depuis l'administration de Djnago ou directement à la base de donnée
